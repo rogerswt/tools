@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>testCoverage Report </title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/black-tie/jquery-ui.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!--<script>
+        $(function() {
+          $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+          $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+        });
+    </script>-->
+    <style>
+	.footer {
+		padding-top: 19px;
+		color: #777;
+		border-top: 1px solid #e5e5e5;
+	}
+  .btn,
+  .nav-pills>li>a,
+  .ui-corner-all,
+  .ui-corner-top,
+  .ui-corner-left,
+  .ui-corner-tl {
+    border-radius: 0;
+  }
+  .ui-widget-header {
+    border: 1px solid #aaa;
+  	background: #FAA531;
+  	color: #222222;
+  	font-weight: bold;
+  }
+  .fail {
+    color: #A94442;
+  background-color: #F2DEDE;
+  }
+  .pass {
+    color: #3C763D;
+  background-color: #DFF0D8;
+  }
+    </style>
+</head>
+<body>
+  <script>
+  var tagList = ["1_130","1_142","1_160","1_189","1_213","1_216","1_243","1_246","1_256","1_259","1_279","1_282","1_292","1_295","1_318","1_321","1_331","1_371","1_377","1_380","1_398","1_404","1_420","1_423","1_426","1_444","1_447","1_450","1_464","1_467","1_470","1_491","1_505","1_532","1_535","1_538","1_546","1_554","1_576","1_593","1_622","1_625","1_640","1_645","1_659","1_662","1_665","1_686","1_689","1_692","1_724","1_727","1_746","1_749","1_779","1_782","1_812","1_815","1_818","1_839","1_842","1_881","1_910","1_937","2_25","2_28","2_31","2_50","2_53","2_56","2_77","2_80","2_86","2_120","2_137","2_142","2_149","2_155","2_185","2_188","2_191","2_221","2_224","2_227","2_266","2_308","2_311","2_326","2_329","2_344","2_347","2_365","2_368","2_371","2_374","2_386","2_404","2_431","2_434","2_450","2_453","2_461","2_490","2_503","2_539","2_542","2_557","2_560","2_575","2_578","2_591","2_594","2_612","2_615","2_637","2_642","2_653","2_656","2_659","2_670","2_684","2_687","2_690","2_701","2_715","2_719","2_723","2_726","2_733","2_749","2_752","2_755","2_758","2_765","2_791","2_801","2_822","2_832","2_864","2_887","2_902","2_905","2_933","2_946","2_987","2_990","2_1005","2_1008","2_1023","2_1026","2_1039","2_1042","2_1060","2_1063","2_1086","2_1089","2_1092","2_1115","2_1118","2_1121","2_1144","2_1147","2_1150","2_1170","2_1181","2_1206","2_1217","2_1240","2_1246","2_1266","2_1269","2_1293","2_1296","2_1313","2_1328","2_1344","2_1359","2_1387","2_1392","2_1399","2_1402","2_1422","2_1425","2_1429","2_1440","2_1476","2_1479","2_1483","2_1494","2_1530","2_1533","2_1561","2_1574","2_1612","2_1615","2_1632","2_1647","2_1667","2_1682","2_1705","2_1708","2_1715","2_1746","2_1749","2_1752","2_1755","2_1780","2_1783","2_1824","2_1838","2_1878","2_1890","2_1896","2_1917","2_1920","2_1935","2_1950","2_1953","2_1968","2_1983","2_1986","2_1989","2_2005","2_2020","2_2023","2_2026","2_2042","2_2057","2_2060","2_2063","2_2103","2_2106","2_2120","2_2132","2_2135","2_2141","2_2157","2_2176","2_2230","2_2233","2_2252","2_2255","2_2274","2_2277","2_2290","2_2299","2_2302","2_2308","2_2326","2_2330","2_2337","2_2340","2_2346","2_2393","2_2396","2_2399","2_2412","2_2415","2_2454","2_2475","2_2487","2_2502","2_2522","2_2537","2_2560","2_2563","2_2571","2_2574","2_2589","2_2634","2_2679","2_2692","2_2695","2_2705","2_2735","2_2738","2_2757","2_2769","2_2775","2_2796","2_2806","2_2809","2_2825","2_2828","2_2831","2_2848","2_2854","2_2857","2_2868","2_2878","2_2893","2_2904","2_2914","2_2930","2_2941","2_2951","2_2976","2_2979","3_80","3_83","3_103","3_106","3_128","3_131","3_134","3_142","3_162","3_165","3_180","3_183","3_198","3_201","3_220","3_232","3_235","3_261","3_264","3_276","3_279","3_299","3_302","3_321","3_327","3_350","3_363","3_375","3_378","3_402","3_407","3_425","3_431","3_434","3_449","3_452","3_472","3_498","3_508","3_511","3_514","3_517","3_538","3_559","3_580","3_583","3_586","3_602","3_612","3_622","3_632","3_655","3_658","3_673","3_676","3_701","3_704","3_739","3_745","3_756","3_773","3_781","3_793","3_796","3_837","3_883","3_948","3_951","3_962","3_965","3_979","3_985","3_1008","3_1011","3_1022","3_1026","3_1041","3_1047","3_1061","3_1064","3_1075","3_1078","3_1082","3_1103","3_1106","3_1124","3_1140","3_1143","3_1151","3_1157","3_1187","3_1253","3_1256","3_1271","3_1274","3_1277","3_1280","3_1286","3_1289","3_1315","3_1318","3_1324","3_1327","3_1360","3_1363","3_1376","3_1379","3_1382","3_1412","3_1463","3_1466","3_1480","3_1486","3_1506","3_1509","3_1517","3_1520","3_1530","3_1533","3_1560","3_1621","3_1624","3_1636","3_1639","3_1654","3_1665","3_1668","3_1683","3_1686","3_1705","3_1710","3_1734","3_1761","3_1778","3_1781","3_1791","3_1807","3_1817","3_1826","3_1850","4_42","4_57","4_60","4_63","4_88","4_91","4_94","4_107","4_110","4_129","4_132","4_135","4_153","4_159","4_199","4_202","4_217","4_267","4_270","4_275","4_292","4_375","4_390","4_393","4_396","4_421","4_424","4_427","4_440","4_443","4_462","4_465","4_468","4_497","4_503","4_515","4_555","4_558","4_573","4_623","4_626","4_631","4_648","4_711","4_714","4_746","4_749","4_753","4_783","4_786","4_790","4_798","4_801","4_805","4_818","4_871","4_874","4_884","4_887","4_897","4_900","4_903","4_921","4_926","4_942","4_980","4_983","4_999","4_1001","4_1020","4_1058","4_1061","4_1075","4_1078","4_1082","4_1103","4_1106","5_84","5_96","5_112","5_141","5_162","5_165","5_210","5_213","5_219","5_233","5_245","5_248","5_281","5_288","5_291","5_302","5_305","5_319","5_331","5_340","5_343","5_346","5_354","5_362","5_382","5_385","5_406","5_411","5_425","5_435","5_438","5_441","5_467","5_486","5_491","5_507","5_510","5_534","5_576","5_583","5_586","5_594","5_597","5_600","5_632","5_635","5_657","5_694","5_699","5_713","5_723","5_726","5_729","5_755","5_760","5_776","5_779","5_803","5_806","5_817","5_847","5_868","5_871","5_905","5_950","5_956","5_996","5_1001","5_1015","5_1018","5_1035","5_1054","5_1070","5_1073","5_1108","5_1111","5_1204","5_1207","5_1234","5_1237","5_1240","5_1243","5_1263","5_1266","5_1269","5_1272","5_1295","5_1298","5_1308","5_1327","5_1353","5_1359","5_1375","5_1378","5_1381","5_1399","5_1402","5_1405","5_1419","5_1422","5_1425","5_1446","5_1460","5_1492","5_1498","5_1501","5_1550","5_1553","5_1571","5_1574","5_1592","5_1595","5_1612","5_1622","5_1637","5_1647","5_1681","5_1709","5_1732","5_1756","5_1777","6_46","6_65","6_93","6_110","6_187","6_199","6_211","6_228","6_246","6_277","6_282","6_301","6_304","6_307","6_328","6_331","6_362","6_365","6_373","6_404","6_407","6_434","6_437","6_447","6_450","6_470","6_473","6_483","6_486","6_511","6_516","6_535","6_538","6_548","6_579","6_582","6_593","6_596","6_619","6_625","6_628","6_648","6_651","6_671","6_674","6_677","6_701","6_704","6_725","6_735","6_738","6_753","6_756","6_776","6_779","6_804","6_807","6_824","6_829","6_848","6_851","6_876","6_879","6_892","6_895","6_913","6_916","6_926","6_929","6_941","6_946","6_964","6_967","6_978","6_1008","6_1019","6_1072","6_1078","6_1081","6_1084","6_1111","6_1114","6_1117","6_1155","6_1188","6_1193","6_1212","6_1215","6_1227","6_1232","6_1246","6_1257","6_1262","6_1269","6_1272","6_1290","6_1312","6_1315","6_1333","6_1355","6_1358","6_1365","6_1378","6_1388","6_1408","6_1441","6_1447","6_1469","6_1482","6_1485","6_1513","6_1525","6_1530","6_1537","6_1540","6_1567","6_1572","6_1586","6_1589","6_1592","6_1619","6_1643","6_1654","6_1671","6_1674","6_1680","6_1712","6_1718","6_1740","6_1743","6_1789","6_1794","6_1818","6_1835","6_1838","6_1850","6_1855","6_1880","6_1883","6_1910","6_1929","6_1932","6_1935"];
+var sumTags = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var allTags = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+var coverage = [[[63,1],[221,13],[0,140],[77,0],[119,2],[0,143]]];
+var all_coverage = [[63,1],[221,13],[0,140],[77,0],[119,2],[0,143]];
+var sumAllTraces = {"0":779,"1":480};
+docolor = function(j, bb) {
+// $("#t_" + tagList[j]).css("backgroundColor", bb ? "lightgreen" : "lightpink");
+    if(bb > 0) {
+        $("#t_" + tagList[j]).removeClass("fail").addClass("pass");
+	} else {
+        $("#t_" + tagList[j]).removeClass("pass").addClass("fail");
+    }
+};
+pbsummed = function(j, cov) {
+    pct = 100 * (cov[0] / (cov[0] + cov[1]));
+    $("#progress-" + (j + 1)).progressbar({
+        value: pct
+    });
+};
+$(document).ready(function() {
+    $.each(sumTags, docolor);
+    $.each(all_coverage, pbsummed);
+    $("#trace_all").click(function() {
+        $.each(sumTags, docolor);
+        $.each(all_coverage, pbsummed)
+    });
+    $.each(allTags, function(i, dum) {
+        $("#run_" + (i + 1)).click(
+            function() {
+                $.each(allTags[i], docolor);
+                $.each(coverage[i], function(j, cov) {
+                    pct = 100 * (cov[0] / (cov[0] + cov[1]));
+                    $("#progress-" + (j + 1)).progressbar({
+                        value: pct
+                    });
+                })
+            });
+    });
+
+    //This will only run if jQuery has loaded.
+    $(".internet-connectivity").hide();
+});
+$( document ).ready(function() {
+  $(".internet-connectivity").hide();
+})
+  </script>
+  <div class="alert alert-danger internet-connectivity" role="alert"><h1><strong>Warning:</strong> An internet connection is required to load external assets.</h1></div>
+  <div class="container">
+  <div class="jumbotron">
+    <h1>testCoverage Report <small></small></h1>
+  </div>
+  <h2>Summary</h2>
+<!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
+<!-- Mon Dec  8 17:59:24 2014 -->
+<TABLE class="table table-bordered">
+<TR> <TH>  </TH> <TH> Total # Tracepoints </TH> <TH> # Executed </TH> <TH> % Coverage </TH>  </TR>
+  <TR> <TD align="right"> 1 </TD> <TD> 779 </TD> <TD> 480 </TD> <TD>  62% </TD> </TR>
+   </TABLE>
+<h2>testthat Tests</h2>
+	<button type="button" class="btn btn-default" id="trace_all">All Tests</button>&nbsp;<button type='button' class='btn btn-default' id='run_1'>testthat.distribution.analysis.R</button>&nbsp;<h2>Resource Files</h2><div class="row">
+       <div class="col-md-4">
+        <ul class="nav nav-pills nav-stacked" role="tablist"><li class="active"><a role="tab" data-toggle="tab" href="#tabs-1">blob_boundary.R</a><div id="progress-1" ></div></li>
+<li class=""><a role="tab" data-toggle="tab" href="#tabs-2">blob_utils.R</a><div id="progress-2" ></div></li>
+<li class=""><a role="tab" data-toggle="tab" href="#tabs-3">deGate.R</a><div id="progress-3" ></div></li>
+<li class=""><a role="tab" data-toggle="tab" href="#tabs-4">histogram_analysis.R</a><div id="progress-4" ></div></li>
+<li class=""><a role="tab" data-toggle="tab" href="#tabs-5">locateBlobs.R</a><div id="progress-5" ></div></li>
+<li class=""><a role="tab" data-toggle="tab" href="#tabs-6">watershed_boundary.R</a><div id="progress-6" ></div></li>
+</ul>
+    </div> 
+    <div class="col-md-8">
+    <div class="tab-content"><div class="tab-pane active" id="tabs-1"><pre>#
+#        Find blobs in 2D projection.
+#
+#  Defaults are reasonable for finding lymphocytes in data from BD Diva instruments.
+#
+#        The idea is to compute the kernel density estimate of a 2D set (often FSC/SSC), compute
+#        a single contour at a specified height, and then select that contour which is closest to a
+#        target centroid location.
+#
+# If log.transform is TRUE, transform the kde before contouring.
+#
+
+<span id="t_1_36">blob.boundary</span> &lt;- function (ff, parameters=c("FSC-A", "SSC-A"), location=c(75000, 25000), bandwidth=c(.02, .02), gridsize=c(201L, 201L), height=.1, log.transform=FALSE) {
+        <span id="t_1_130">require (KernSmooth)</span>
+        <span id="t_1_142">require (flowCore)</span>
+  
+  if (!(<span id="t_1_160">is(ff)</span>[[1]]) == "flowFrame") {
+                <span id="t_1_189">stop ("first argument must be a flowFrame\n")</span>
+        }
+        
+        # extract a matrix of values
+        <span id="t_1_213">mat</span> &lt;- <span id="t_1_216">exprs(ff)</span>[,parameters]
+        
+        # compute a reasonable bandwith for the kde
+        <span id="t_1_243">bw1</span> &lt;- <span id="t_1_246">bandwidth</span>[1] * <span id="t_1_256">max (<span id="t_1_259">mat</span>[,1])</span>
+        <span id="t_1_279">bw2</span> &lt;- <span id="t_1_282">bandwidth</span>[2] * <span id="t_1_292">max (<span id="t_1_295">mat</span>[,2])</span>
+        # do the kernel density estimate
+        <span id="t_1_318">kde</span> &lt;- <span id="t_1_321">bkde2D (mat, bandwidth=<span id="t_1_331">c(bw1, bw2)</span>, gridsize=gridsize)</span>
+        
+        # normalize the density estimate for sanity
+        kde$fhat &lt;- <span id="t_1_371">kde</span>$fhat / <span id="t_1_377">max(<span id="t_1_380">kde</span>$fhat)</span>
+  
+  if (<span id="t_1_398">log.transform</span>) {
+    <span id="t_1_404">epsilon</span> = 1e-4
+    kde$fhat = <span id="t_1_420">log10(<span id="t_1_423">epsilon</span> + <span id="t_1_426">kde</span>$fhat)</span>
+    # renormalize to [0,1]
+    <span id="t_1_444">mx</span> = <span id="t_1_447">max(<span id="t_1_450">kde</span>$fhat)</span>
+    <span id="t_1_464">mn</span> = <span id="t_1_467">min(<span id="t_1_470">kde</span>$fhat)</span>
+    kde$fhat = (<span id="t_1_491">kde</span>$fhat - mn) / (<span id="t_1_505">mx</span> - mn)
+  }
+        
+        # compute contour lines at the given height
+        <span id="t_1_532">cont</span> &lt;- <span id="t_1_535">contourLines (<span id="t_1_538">kde</span>$x1, <span id="t_1_546">kde</span>$x2, <span id="t_1_554">kde</span>$fhat, levels=height)</span>
+        if (<span id="t_1_576">length(cont)</span> == 0) {
+                <span id="t_1_593">cat ("No contours were found!\n")</span>
+                return
+        }
+        
+        # pick the  contour closest to the target location
+        <span id="t_1_622">dist</span> &lt;- <span id="t_1_625">vector("numeric")</span>
+        for (<span id="t_1_640">i</span> in 1:<span id="t_1_645">length(cont)</span>) {
+                <span id="t_1_659">xcen</span> &lt;- <span id="t_1_662">mean(<span id="t_1_665">cont</span>[[i]]$x)</span>
+                <span id="t_1_686">ycen</span> &lt;- <span id="t_1_689">mean(<span id="t_1_692">cont</span>[[i]]$y)</span>
+                dist[i] &lt;- (<span id="t_1_724">xcen</span> - <span id="t_1_727">location</span>[1])^2 + (<span id="t_1_746">ycen</span> - <span id="t_1_749">location</span>[2])^2
+        }
+        <span id="t_1_779">nearest</span> &lt;- <span id="t_1_782">sort(dist, index.return=T)</span>$ix[1]
+        <span id="t_1_812">nrows</span> &lt;- <span id="t_1_815">length(<span id="t_1_818">cont</span>[[nearest]]$x)</span>
+        <span id="t_1_839">out</span> &lt;- <span id="t_1_842">matrix(NA, nrow=nrows, ncol=2)</span>
+        out[,1] &lt;- <span id="t_1_881">cont</span>[[nearest]]$x
+        out[,2] &lt;- <span id="t_1_910">cont</span>[[nearest]]$y
+        colnames(out) &lt;- <span id="t_1_937">parameters</span>
+        out
+}</pre></div><div class="tab-pane " id="tabs-2"><pre>
+# draw a circle around the center of a blob
+<span id="t_2_6">circle</span> &lt;- function (blob, radius, length=100) {
+  <span id="t_2_25">cen1</span> &lt;- <span id="t_2_28">mean(<span id="t_2_31">blob</span>[,1])</span>
+  <span id="t_2_50">cen2</span> &lt;- <span id="t_2_53">mean(<span id="t_2_56">blob</span>[,2])</span>
+  
+  <span id="t_2_77">out</span> &lt;- <span id="t_2_80">matrix(nrow=(<span id="t_2_86">length</span>+1), ncol=2)</span>
+  colnames(out) &lt;- <span id="t_2_120">colnames(blob)</span>
+  
+  for (<span id="t_2_137">i</span> in 1:<span id="t_2_142">length</span>) {
+    <span id="t_2_149">theta</span> &lt;- 2*<span id="t_2_155">pi</span>*i/length
+    out[i,1] &lt;- <span id="t_2_185">cen1</span> + <span id="t_2_188">radius</span> * <span id="t_2_191">cos(theta)</span>
+    out[i,2] &lt;- <span id="t_2_221">cen2</span> + <span id="t_2_224">radius</span> * <span id="t_2_227">sin(theta)</span>
+  }
+  out[length+1,] &lt;- <span id="t_2_266">out</span>[1,]        # join the beginning and end (aesthetics)
+  out
+}
+
+<span id="t_2_298">get.hull</span> &lt;- function (blob) {
+  <span id="t_2_308">x</span> &lt;- <span id="t_2_311">blob</span>[,1]
+  <span id="t_2_326">y</span> &lt;- <span id="t_2_329">blob</span>[,2]
+  <span id="t_2_344">hull</span> &lt;- <span id="t_2_347">chull(x, y)</span>
+  <span id="t_2_365">poly</span> &lt;- <span id="t_2_368">matrix(<span id="t_2_371">c(<span id="t_2_374">x</span>[hull], <span id="t_2_386">y</span>[hull])</span>, nrow=<span id="t_2_404">length(hull)</span>, ncol=2)</span>
+  # get rid of dupes
+  <span id="t_2_431">poly</span> &lt;- <span id="t_2_434">unique(poly)</span>
+  # close the contour
+  <span id="t_2_450">poly</span> &lt;- <span id="t_2_453">rbind(poly, <span id="t_2_461">poly</span>[1,])</span>
+  colnames(poly) &lt;- <span id="t_2_490">colnames(blob)</span>
+  <span id="t_2_503">return(poly)</span>        
+}
+
+<span id="t_2_526">inflate.contour</span> &lt;- function (blob, dist) {  
+  <span id="t_2_539">x</span> &lt;- <span id="t_2_542">blob</span>[,1]
+  <span id="t_2_557">y</span> &lt;- <span id="t_2_560">blob</span>[,2]
+  <span id="t_2_575">len</span> &lt;- <span id="t_2_578">length(x)</span>
+  <span id="t_2_591">x_infl</span> &lt;- <span id="t_2_594">mat.or.vec (len, 1)</span>
+  <span id="t_2_612">y_infl</span> &lt;- <span id="t_2_615">mat.or.vec (len, 1)</span>
+  
+  for (<span id="t_2_637">i</span> in 1:<span id="t_2_642">len</span> - 1) {
+    <span id="t_2_653">dx</span> &lt;- <span id="t_2_656">x</span>[<span id="t_2_659">i</span>+1] - <span id="t_2_670">x</span>[i]
+    <span id="t_2_684">dy</span> &lt;- <span id="t_2_687">y</span>[<span id="t_2_690">i</span>+1] - <span id="t_2_701">y</span>[i]
+    <span id="t_2_715">ux</span> &lt;- -<span id="t_2_719">dy</span> / <span id="t_2_723">sqrt(<span id="t_2_726">dx</span>*dx + <span id="t_2_733">dy</span>*dy)</span>
+    <span id="t_2_749">uy</span> &lt;-  <span id="t_2_752">dx</span> / <span id="t_2_755">sqrt(<span id="t_2_758">dx</span>*dx + <span id="t_2_765">dy</span>*dy)</span>
+    x_infl[i] &lt;- <span id="t_2_791">x</span>[i] + <span id="t_2_801">ux</span>*dist
+    y_infl[i] &lt;- <span id="t_2_822">y</span>[i] + <span id="t_2_832">uy</span>*dist
+  }
+  # do the closure point
+  x_infl[len] &lt;- <span id="t_2_864">x_infl</span>[1]
+  y_infl[len] &lt;- <span id="t_2_887">y_infl</span>[1]
+  
+  <span id="t_2_902">new_poly</span> &lt;- <span id="t_2_905">as.points (x_infl, y_infl)</span>
+  colnames(new_poly) &lt;- <span id="t_2_933">colnames(blob)</span>
+  <span id="t_2_946">return (new_poly)</span>
+  
+}
+
+<span id="t_2_971">smooth.contour</span> &lt;- function (blob, npts=5) {  
+  <span id="t_2_987">x</span> &lt;- <span id="t_2_990">blob</span>[,1]
+  <span id="t_2_1005">y</span> &lt;- <span id="t_2_1008">blob</span>[,2]
+  <span id="t_2_1023">len</span> &lt;- <span id="t_2_1026">length(x)</span>
+  <span id="t_2_1039">x_smo</span> &lt;- <span id="t_2_1042">mat.or.vec (len, 1)</span>        
+  <span id="t_2_1060">y_smo</span> &lt;- <span id="t_2_1063">mat.or.vec (len, 1)</span>
+  
+  # prepare for circular wrapping        
+  <span id="t_2_1086">xe</span> &lt;- <span id="t_2_1089">mat.or.vec (<span id="t_2_1092">len</span> + npts - 1, 1)</span>
+  <span id="t_2_1115">ye</span> &lt;- <span id="t_2_1118">mat.or.vec (<span id="t_2_1121">len</span> + npts - 1, 1)</span>
+  <span id="t_2_1144">b</span> &lt;- <span id="t_2_1147">floor(<span id="t_2_1150">npts</span>/2)</span>
+  
+  xe[(<span id="t_2_1170">b</span>+1):(<span id="t_2_1181">len</span>+b)] &lt;- x
+  ye[(<span id="t_2_1206">b</span>+1):(<span id="t_2_1217">len</span>+b)] &lt;- y
+  for (<span id="t_2_1240">i</span> in 1:(<span id="t_2_1246">b</span>)) {
+    xe[i] &lt;- <span id="t_2_1266">x</span>[<span id="t_2_1269">len</span> - i]
+    ye[i] &lt;- <span id="t_2_1293">y</span>[<span id="t_2_1296">len</span> - i]
+    xe[<span id="t_2_1313">len</span>+b+i] &lt;- <span id="t_2_1328">x</span>[i]
+    ye[<span id="t_2_1344">len</span>+b+i] &lt;- <span id="t_2_1359">y</span>[i]
+  }
+  
+  # now do the smoothing
+  for (<span id="t_2_1387">i</span> in 1:<span id="t_2_1392">len</span>) {
+    <span id="t_2_1399">j</span> &lt;- <span id="t_2_1402">i</span>+b
+    x_smo[i] &lt;- <span id="t_2_1422">sum(<span id="t_2_1425">xe</span>[(<span id="t_2_1429">j</span>-b):(<span id="t_2_1440">j</span>+b)])</span> / npts
+    y_smo[i] &lt;- <span id="t_2_1476">sum(<span id="t_2_1479">ye</span>[(<span id="t_2_1483">j</span>-b):(<span id="t_2_1494">j</span>+b)])</span> / npts
+  }
+  
+  <span id="t_2_1530">new_poly</span> &lt;- <span id="t_2_1533">as.points (x_smo, y_smo)</span>
+  colnames(new_poly) &lt;- <span id="t_2_1561">colnames(blob)</span>
+  <span id="t_2_1574">return (new_poly)</span>
+  
+}
+
+# Worker function - what is the centroid of a contour? Assumes cont is a matrix
+<span id="t_2_1602">centroid</span> = function (cont) {
+  <span id="t_2_1612">nr</span> = <span id="t_2_1615">nrow(cont)</span>
+  if ((<span id="t_2_1632">cont</span>[1,1] == <span id="t_2_1647">cont</span>[nr,1]) && (<span id="t_2_1667">cont</span>[1,2] == <span id="t_2_1682">cont</span>[nr,2])) {
+    <span id="t_2_1705">cont</span> = <span id="t_2_1708">cont</span>[1:(<span id="t_2_1715">nr</span>-1),]
+  }
+  
+  <span id="t_2_1746">vals</span> = <span id="t_2_1749">c(<span id="t_2_1752">mean(<span id="t_2_1755">cont</span>[,1], na.rm=T)</span>, <span id="t_2_1780">mean(<span id="t_2_1783">cont</span>[,2], na.rm=T)</span>)</span>
+  names(vals) = <span id="t_2_1824">colnames(cont)</span>
+  <span id="t_2_1838">return (vals)</span>
+}
+
+# Worker function - is a point inside a contour?
+<span id="t_2_1865">inside</span> = function (p, contour) {
+  <span id="t_2_1878">sum_theta</span> = 0
+  for (<span id="t_2_1890">i</span> in 1:(<span id="t_2_1896">nrow(contour)</span>-1)) {
+    <span id="t_2_1917">x1</span> = <span id="t_2_1920">contour</span>[i,1] - <span id="t_2_1935">p</span>[1]
+    <span id="t_2_1950">y1</span> = <span id="t_2_1953">contour</span>[i,2] - <span id="t_2_1968">p</span>[2]
+    <span id="t_2_1983">x2</span> = <span id="t_2_1986">contour</span>[<span id="t_2_1989">i</span>+1,1] - <span id="t_2_2005">p</span>[1]
+    <span id="t_2_2020">y2</span> = <span id="t_2_2023">contour</span>[<span id="t_2_2026">i</span>+1,2] - <span id="t_2_2042">p</span>[2]
+    <span id="t_2_2057">sum_theta</span> = <span id="t_2_2060">sum_theta</span> + <span id="t_2_2063">angle2D ( x1, y1, x2, y2)</span>
+  }
+  
+  <span id="t_2_2103">sum_theta</span> = <span id="t_2_2106">abs(sum_theta)</span>
+  <span id="t_2_2120">crit</span> = .1
+  if (<span id="t_2_2132">abs(<span id="t_2_2135">sum_theta</span> - 2*<span id="t_2_2141">pi</span>)</span> &lt; crit) {
+    <span id="t_2_2157">return (TRUE)</span>
+  } else {
+    <span id="t_2_2176">return (FALSE)</span>
+  }
+}
+
+# worker function - what is the angle between two vectors?
+<span id="t_2_2211">angle2D</span> = function (x1, y1, x2, y2) {
+  <span id="t_2_2230">theta1</span> = <span id="t_2_2233">atan2 (y1, x1)</span>
+  <span id="t_2_2252">theta2</span> = <span id="t_2_2255">atan2 (y2, x2)</span>
+  <span id="t_2_2274">dtheta</span> = <span id="t_2_2277">theta2</span> - theta1
+  if (<span id="t_2_2290">dtheta</span> &gt; pi) {<span id="t_2_2299">dtheta</span> = <span id="t_2_2302">dtheta</span> - 2*<span id="t_2_2308">pi</span>}
+  if (<span id="t_2_2326">dtheta</span> &lt; -<span id="t_2_2330">pi</span>) {<span id="t_2_2337">dtheta</span> = <span id="t_2_2340">dtheta</span> + 2*<span id="t_2_2346">pi</span>}
+  
+  dtheta
+}
+
+<span id="t_2_2380">cont2mat</span> = function (cont, param) {
+  <span id="t_2_2393">nrows</span> &lt;- <span id="t_2_2396">length(<span id="t_2_2399">cont</span>$x)</span>
+  <span id="t_2_2412">mat</span> &lt;- <span id="t_2_2415">matrix(NA, nrow=nrows, ncol=2)</span>
+  mat[,1] &lt;- <span id="t_2_2454">cont</span>$x
+  mat[,2] &lt;- <span id="t_2_2475">cont</span>$y
+  if ((<span id="t_2_2487">mat</span>[1,1] != <span id="t_2_2502">mat</span>[nrows,1]) && (<span id="t_2_2522">mat</span>[1,2] != <span id="t_2_2537">mat</span>[nrows,2])) {
+    <span id="t_2_2560">mat</span> = <span id="t_2_2563">rbind (mat, <span id="t_2_2571">c(<span id="t_2_2574">cont</span>$x[1], <span id="t_2_2589">cont</span>$y[1])</span>)</span>  # close the contour
+  }
+  colnames(mat) &lt;- <span id="t_2_2634">param</span>
+  mat
+}
+
+# area of a contour.  Assumes cont is closed.
+#  NOTE:  not handling possible problems due to concavity...
+#  area formula from http://www.mathopenref.com/coordtrianglearea.html
+<span id="t_2_2666">contour.area</span> = function (cont) {
+  if (!<span id="t_2_2679">is.matrix(cont)</span>) {<span id="t_2_2692">cont</span> = <span id="t_2_2695">cont2mat(cont, param=<span id="t_2_2705">c("x", "y")</span>)</span>}
+  <span id="t_2_2735">cen</span> = <span id="t_2_2738">centroid (cont)</span>
+  
+  # add up triangle areas
+  <span id="t_2_2757">a.tot</span> = 0
+  for (<span id="t_2_2769">i</span> in 1:(<span id="t_2_2775">nrow(cont)</span>-1)) {
+    <span id="t_2_2796">A</span> = cen
+    <span id="t_2_2806">B</span> = <span id="t_2_2809">cont</span>[i,]
+    <span id="t_2_2825">C</span> = <span id="t_2_2828">cont</span>[<span id="t_2_2831">i</span>+1,]
+    <span id="t_2_2848">area</span> = 0.5 * <span id="t_2_2854">abs(<span id="t_2_2857">A</span>[1] * (<span id="t_2_2868">B</span>[2] - <span id="t_2_2878">C</span>[2]) + <span id="t_2_2893">B</span>[1] * (<span id="t_2_2904">C</span>[2] - <span id="t_2_2914">A</span>[2]) + <span id="t_2_2930">C</span>[1] * (<span id="t_2_2941">A</span>[2] - <span id="t_2_2951">B</span>[2]))</span>
+    <span id="t_2_2976">a.tot</span> = <span id="t_2_2979">a.tot</span> + area
+    # cat (area, a.tot, "\n")
+  }
+  
+  names(a.tot) = "area"
+  a.tot
+}
+
+</pre></div><div class="tab-pane " id="tabs-3"><pre><span id="t_3_1">deGate</span> &lt;- function(f, channel, n.sd=1.5, high = FALSE, percentile, kernel = "g", graphs = FALSE, all.cut = FALSE){
+########################################################################################################################################
+# Estimates the number of cell subsets and identifies the best threshold to gate the positive/negative subsets of cell populations in 1D
+# Args:
+#   f: a FlowFrame
+#   channel: an integer to specifiy the channel for 1D density estimation analysis
+#   n.sd: an integer that is multiplied to the standard deviation to determine the place of threshold 
+#   high: if TRUE, returns the 'percentile' threshold. It returns the 99th percentile by default
+#   percentile: a value in [0,1] that is used as the percentile is 'high' is TRUE
+#   kernel: refer to the '?density' in r base
+#   graphs: if TRUE, it plots the density as well as the threshold on the same plot
+#   all.cut: if TRUE, it returns all the cutoff points whose length can roughly estiamte the number of cell subsets in that dimension 
+# Value:
+#   cutoffs, i.e. thresholds on the 2D data
+# Author:
+#   M. Jafar Taghiyar
+########################################################################################################################################
+
+  <span id="t_3_80">x</span> &lt;- <span id="t_3_83">f</span>@exprs[,channel];
+  <span id="t_3_103">dens</span> &lt;- <span id="t_3_106">density(x, kernel=kernel)</span>;
+  <span id="t_3_128">dens</span> &lt;- <span id="t_3_131">smooth.spline(<span id="t_3_134">dens</span>$x, <span id="t_3_142">dens</span>$y, spar=0.35)</span>
+  <span id="t_3_162">stdev</span> &lt;- <span id="t_3_165">sd(x)</span>;
+  <span id="t_3_180">m</span> &lt;- <span id="t_3_183">median(x)</span>;
+  <span id="t_3_198">fun</span> &lt;- <span id="t_3_201">splinefun(dens)</span>;
+  
+  if(<span id="t_3_220">is.numeric(channel)</span>)
+    <span id="t_3_232">channel</span> &lt;- <span id="t_3_235">colnames(f)</span>[channel];
+  
+  <span id="t_3_261">cutoffs</span> &lt;- <span id="t_3_264">c()</span>;
+  <span id="t_3_276">peaks</span> &lt;- <span id="t_3_279">getPeaks(dens, channel)</span>;
+  <span id="t_3_299">l</span> &lt;- <span id="t_3_302">length(peaks)</span>;
+  
+  for(<span id="t_3_321">i</span> in 1:(<span id="t_3_327">l</span>-1))
+    cutoffs[i] &lt;- <span id="t_3_350">getIntersect(dens, channel, <span id="t_3_363">peaks</span>[i], <span id="t_3_375">peaks</span>[<span id="t_3_378">i</span>+1])</span>;
+  if(<span id="t_3_402">all.cut</span>)
+    <span id="t_3_407">return(cutoffs)</span>
+  
+  if(<span id="t_3_425">high</span>){
+    <span id="t_3_431">e</span> &lt;- <span id="t_3_434">ecdf(x)</span>;
+    <span id="t_3_449">cutoffs</span> &lt;- <span id="t_3_452">quantile(e, percentile)</span>;
+    <span id="t_3_472">return(cutoffs)</span>;
+  }
+  
+  if(<span id="t_3_498">channel</span>=="FSC-A") # Removes debris and gate Lymphocytes
+    <span id="t_3_508">cutoffs</span> &lt;- <span id="t_3_511">min(<span id="t_3_514">quantile(<span id="t_3_517">ecdf(x)</span>, 0.1)</span>, <span id="t_3_538">min(cutoffs)</span>)</span>
+  else{
+    if(<span id="t_3_559">length(peaks)</span>==1){
+#       if(missing(n.sd))
+#         n.sd &lt;- max(1,floor(max(fun(peaks))/stdev))
+      <span id="t_3_580">cutoffs</span> &lt;- <span id="t_3_583">ifelse(<span id="t_3_586">peaks</span>[1] &gt; m, <span id="t_3_602">peaks</span>[1] - <span id="t_3_612">n.sd</span> * stdev, <span id="t_3_622">peaks</span>[1] + <span id="t_3_632">n.sd</span> * stdev)</span> 
+    }
+    else{
+      <span id="t_3_655">distance</span> &lt;- <span id="t_3_658">getDist(peaks)</span>;
+      <span id="t_3_673">index</span> &lt;- <span id="t_3_676">getMetricIndex(fun, cutoffs, distance)</span>;
+      <span id="t_3_701">cutoffs</span> &lt;- <span id="t_3_704">cutoffs</span>[index];
+    }   
+  }
+    
+  if(<span id="t_3_739">graphs</span>){
+    <span id="t_3_745">x11()</span>; 
+    <span id="t_3_756">plot(dens, type="l", main=<span id="t_3_773">paste(channel, <span id="t_3_781">f</span>@parameters@data$desc[<span id="t_3_793">which(<span id="t_3_796">colnames(f)</span>==channel)</span>], sep=": ")</span>)</span>;
+    <span id="t_3_837">abline(v=cutoffs, lty="dashed", lwd=2, col=2)</span>;
+  }
+  <span id="t_3_883">return(cutoffs)</span>;
+}
+
+### Helper functions
+<span id="t_3_911">getPeaks</span> &lt;- function(dens, channel, w = 1){
+########################################################################################################################################
+# Finds the peaks in the density of the given channel
+# Args:
+#   dens: density of the channel whose peaks are going to be found 
+#   channel: an integer to specifiy the channel for 1D density estimation analysis
+#   w: the length of the window where the function searches for the peaks. If all peaks required, use the default w=1. 
+# Value:
+#   peaks in the density of the provided channel
+########################################################################################################################################
+  <span id="t_3_948">d</span> &lt;- <span id="t_3_951">dens</span>$y;
+  <span id="t_3_962">peaks</span> &lt;- <span id="t_3_965">c()</span>;
+  for(<span id="t_3_979">i</span> in 1:(<span id="t_3_985">length(d)</span>-w)){
+    if(<span id="t_3_1008">d</span>[<span id="t_3_1011">i</span>+w] &gt; <span id="t_3_1022">d</span>[(<span id="t_3_1026">i</span>+w+1):(<span id="t_3_1041">i</span>+2*<span id="t_3_1047">w</span>)] & <span id="t_3_1061">d</span>[<span id="t_3_1064">i</span>+w] &gt; <span id="t_3_1075">d</span>[<span id="t_3_1078">i</span>:(<span id="t_3_1082">i</span>+w-1)] & <span id="t_3_1103">d</span>[<span id="t_3_1106">i</span>+w] &gt; 1/20*<span id="t_3_1124">max(d)</span>) # also removes tiny artificial peaks less than %5 of the max peak
+      <span id="t_3_1140">peaks</span> &lt;- <span id="t_3_1143">c(peaks, <span id="t_3_1151">dens</span>$x[<span id="t_3_1157">i</span>+w])</span>;
+  }
+  <span id="t_3_1187">return(peaks)</span>;  
+}
+
+
+<span id="t_3_1214">getIntersect</span> &lt;- function(dens, channel, p1, p2){
+########################################################################################################################################
+# Returns the min intersection between two peaks
+# Args:
+#   dens: density of the channel whose peaks are going to be found 
+#   channel: an integer to specifiy the channel for 1D density estimation analysis
+#   p1: firs peak
+#   p2: second peak
+# Value:
+#   the min intersection between two peaks
+########################################################################################################################################
+  <span id="t_3_1253">fun</span> &lt;- <span id="t_3_1256">splinefun(dens)</span>;
+  <span id="t_3_1271">index</span> &lt;- <span id="t_3_1274">intersect(<span id="t_3_1277">which(<span id="t_3_1280">dens</span>$x &lt; <span id="t_3_1286">max(<span id="t_3_1289">c(p1,p2)</span>)</span>)</span>, <span id="t_3_1315">which(<span id="t_3_1318">dens</span>$x &gt; <span id="t_3_1324">min(<span id="t_3_1327">c(p1,p2)</span>)</span>)</span>)</span>;
+  <span id="t_3_1360">min.intsct</span> &lt;- <span id="t_3_1363">dens</span>$x[index][<span id="t_3_1376">which.min(<span id="t_3_1379">fun(<span id="t_3_1382">dens</span>$x[index])</span>)</span>];
+  <span id="t_3_1412">return(min.intsct)</span>;
+}
+
+
+<span id="t_3_1439">getDist</span> &lt;- function(peaks){
+########################################################################################################################################
+# Returns the distance between adjacent peaks
+# Args:
+#   peaks: peaks of the density
+# Value:
+#   distance between adjacent peaks
+#######################################################################################################################################
+  <span id="t_3_1463">d</span> &lt;- <span id="t_3_1466">c()</span>;
+  for(<span id="t_3_1480">i</span> in 1:(<span id="t_3_1486">length(peaks)</span>-1))
+    <span id="t_3_1506">d</span> &lt;- <span id="t_3_1509">c(d, <span id="t_3_1517">abs(<span id="t_3_1520">peaks</span>[i] - <span id="t_3_1530">peaks</span>[<span id="t_3_1533">i</span>+1])</span>)</span>;
+  <span id="t_3_1560">return(d)</span>;
+}
+
+
+<span id="t_3_1587">getMetricIndex</span> &lt;- function(fun, cutoffs, d){
+########################################################################################################################################
+# Returns the metric value based upon which the deGate() function decides on the thresholds
+# Args:
+#   fun: a function fitted on the density of the channel being analyzed by the deGate() 
+#   cutoffs: the min intersections returned by getIntersect() function
+#   d: the distance between adjacent peaks returned by the getDist() function
+# Value:
+#   the index of the coresponding metric value
+########################################################################################################################################
+  <span id="t_3_1621">h</span> &lt;- <span id="t_3_1624">c()</span>;
+  <span id="t_3_1636">h</span> &lt;- <span id="t_3_1639">fun(cutoffs)</span>;
+  <span id="t_3_1654">max.metric</span> &lt;- 0;
+  <span id="t_3_1665">max.h</span> &lt;- <span id="t_3_1668">max(h)</span>;
+  <span id="t_3_1683">max.d</span> &lt;- <span id="t_3_1686">max(d)</span>;
+  
+  for(<span id="t_3_1705">i</span> in 1:<span id="t_3_1710">length(d)</span>){
+    d[i] &lt;- <span id="t_3_1734">d</span>[i]/max.d
+    h[i] &lt;- <span id="t_3_1761">h</span>[i]/max.h
+    <span id="t_3_1778">metric</span> &lt;- <span id="t_3_1781">d</span>[i]/<span id="t_3_1791">h</span>[i]
+    if(<span id="t_3_1807">metric</span> &gt; max.metric){
+      <span id="t_3_1817">max.metric</span> &lt;- metric
+      <span id="t_3_1826">max.index</span> &lt;- i
+    }
+  }
+  <span id="t_3_1850">return(max.index)</span>;
+}
+
+
+</pre></div><div class="tab-pane " id="tabs-4"><pre>
+#
+# This function finds the local maxima on a kernel density estimate
+#
+<span id="t_4_12">find.local.maxima</span> &lt;- function (kde, thresh=.05, show=FALSE, span = 11) {
+  # require (msProcess)    # no longer supported
+  <span id="t_4_42">require (wmtsa)</span>    # for peaks
+  
+  <span id="t_4_57">ind</span> &lt;- <span id="t_4_60">msExtrema(<span id="t_4_63">kde</span>$y, span=span)</span>$index.max
+  
+  <span id="t_4_88">max_y</span> &lt;- <span id="t_4_91">max (<span id="t_4_94">kde</span>$y)</span>
+  <span id="t_4_107">sel</span> &lt;- <span id="t_4_110">kde</span>$y / max_y &gt; thresh
+  
+  <span id="t_4_129">ind</span> &lt;- <span id="t_4_132">which (<span id="t_4_135">ind</span> & sel)</span>
+  
+  if (<span id="t_4_153">show</span>) {
+    <span id="t_4_159">plot (kde, type='l', xlab="", ylab="", xaxt='n')</span>
+    <span id="t_4_199">points (<span id="t_4_202">kde</span>$x[ind], <span id="t_4_217">kde</span>$y[ind], pch=20, cex=.5, col='red')</span>
+  }
+  
+  <span id="t_4_267">return (<span id="t_4_270">list(x=<span id="t_4_275">kde</span>$x[ind], y=<span id="t_4_292">kde</span>$y[ind], pick=ind)</span>)</span>
+}
+
+#
+# This function finds the local minima on a kernel density estimate
+#
+<span id="t_4_342">find.local.minima</span> &lt;- function (kde, thresh=.05, offset=5000, show=FALSE, ...) {
+  # require (msProcess)    # no longer supported
+  <span id="t_4_375">require (wmtsa)</span>    # for peaks
+  
+  <span id="t_4_390">ind</span> &lt;- <span id="t_4_393">msExtrema(<span id="t_4_396">kde</span>$y, span=11)</span>$index.min
+  
+  <span id="t_4_421">max_y</span> &lt;- <span id="t_4_424">max (<span id="t_4_427">kde</span>$y)</span>
+  <span id="t_4_440">sel</span> &lt;- <span id="t_4_443">kde</span>$y / max_y &gt; thresh
+  
+  <span id="t_4_462">pick</span> &lt;- <span id="t_4_465">which (<span id="t_4_468">ind</span> & sel)</span>
+  
+  # apply offset
+  #tmp &lt;- max (which(kde$x &lt; (kde$x[pick] - offset)))
+  #pick &lt;- which (kde$x == kde$x[tmp])
+  
+  if (<span id="t_4_497">show</span>) {
+    <span id="t_4_503">par(...)</span>
+    <span id="t_4_515">plot (kde, type='l', xlab="", ylab="", xaxt='n')</span>
+    <span id="t_4_555">points (<span id="t_4_558">kde</span>$x[pick], <span id="t_4_573">kde</span>$y[pick], pch=20, cex=.5, col='red')</span>
+  }
+  
+  <span id="t_4_623">return (<span id="t_4_626">list(x=<span id="t_4_631">kde</span>$x[pick], y=<span id="t_4_648">kde</span>$y[pick], pick=pick)</span>)</span>
+}
+
+# helper function, not to be exposed
+<span id="t_4_692">msExtrema</span> &lt;- function(x, span=3)
+{
+  # find local maxima
+  <span id="t_4_711">index1</span> &lt;- <span id="t_4_714">peaks(x, span=span, strict=FALSE)</span>
+  
+  # find local minima
+  <span id="t_4_746">index2</span> &lt;- <span id="t_4_749">peaks(-<span id="t_4_753">x</span>, span=span, strict=FALSE)</span>
+  
+  # remove the interior of plateaus
+  <span id="t_4_783">index.max</span> &lt;- <span id="t_4_786">index1</span> & !<span id="t_4_790">index2</span>
+  <span id="t_4_798">index.min</span> &lt;- <span id="t_4_801">index2</span> & !<span id="t_4_805">index1</span>
+  
+  # construct output
+  <span id="t_4_818">list(index.max=index.max, index.min=index.min)</span>
+}
+
+
+# find the full width half-maximum (or other width at percent maximum)
+<span id="t_4_855">find.width</span> = function (kde, frac=0.5) {
+  <span id="t_4_871">x</span> = <span id="t_4_874">kde</span>$x
+  <span id="t_4_884">y</span> = <span id="t_4_887">kde</span>$y
+  <span id="t_4_897">mx</span> = <span id="t_4_900">max(<span id="t_4_903">kde</span>$y)</span>
+  
+  for (<span id="t_4_921">i</span> in 1:<span id="t_4_926">length(y)</span>) {
+    if (<span id="t_4_942">y</span>[i]/mx &gt; frac) {break}
+  }
+  <span id="t_4_980">left</span> = <span id="t_4_983">x</span>[i]
+  for (<span id="t_4_999">i</span> in <span id="t_4_1001">length(y)</span>:1) {
+    if (<span id="t_4_1020">y</span>[i]/mx &gt; frac) {break}
+  }
+  <span id="t_4_1058">right</span> = <span id="t_4_1061">x</span>[i]
+  <span id="t_4_1075">center</span> = <span id="t_4_1078">left</span> + (<span id="t_4_1082">right</span> - left)/2
+  
+  <span id="t_4_1103">return (<span id="t_4_1106">list(center=center, left=left, right=right, frac=frac)</span>)</span>
+}</pre></div><div class="tab-pane " id="tabs-5"><pre>#
+#  locate.blobs
+#
+<span id="t_5_10">locate.blobs</span> = function (ff, param=c("FSC-A", "SSC-A"), eps=.01, max_peaks=10, min_level=5*eps, nbin=501, bandwidth=0.02, log.transform=FALSE, show=FALSE) {
+  <span id="t_5_84">require (KernSmooth)</span>
+  <span id="t_5_96">require (flowCore)</span>
+  if (!(<span id="t_5_112">is(ff)</span>[[1]]) == "flowFrame") {
+    <span id="t_5_141">stop ("first argument must be a flowFrame\n")</span>
+  }
+  <span id="t_5_162">kde</span> = <span id="t_5_165">ff2kde (ff, param, nbin=nbin, bandwidth=bandwidth, log.transform=log.transform)</span>
+  
+  # search from the top down
+  <span id="t_5_210">heights</span> = <span id="t_5_213">seq(1-<span id="t_5_219">eps</span>, min_level, by=-<span id="t_5_233">eps</span>)</span>
+  <span id="t_5_245">centers</span> = <span id="t_5_248">matrix (nrow=0, ncol=2)</span>
+  colnames(centers) = <span id="t_5_281">param</span>
+  <span id="t_5_288">contours</span> = <span id="t_5_291">list()</span>
+  <span id="t_5_302">levels</span> = <span id="t_5_305">vector('numeric')</span>
+  <span id="t_5_319">nfound</span> = 0
+  for (<span id="t_5_331">height</span> in heights) {
+    
+    <span id="t_5_340">cont</span> &lt;- <span id="t_5_343">contourLines (<span id="t_5_346">kde</span>$x1, <span id="t_5_354">kde</span>$x2, <span id="t_5_362">kde</span>$fhat, levels=height)</span>
+    <span id="t_5_382">cont</span> = <span id="t_5_385">close.contour (cont)</span>
+    
+    # loop over the contour lines to detect new centers
+    for (<span id="t_5_406">c</span> in 1:<span id="t_5_411">length(cont)</span>) {
+      <span id="t_5_425">found</span> = FALSE
+      <span id="t_5_435">cmat</span> =  <span id="t_5_438">cont2mat(<span id="t_5_441">cont</span>[[c]], param)</span>
+      if (<span id="t_5_467">nrow(centers)</span> &gt; 0) {
+        for (<span id="t_5_486">p</span> in 1:<span id="t_5_491">nrow(centers)</span>) {
+          if (<span id="t_5_507">inside (<span id="t_5_510">centers</span>[p,], cmat)</span>) {
+            <span id="t_5_534">found</span> = TRUE
+            break
+          }
+        }
+      }
+      if (!<span id="t_5_576">found</span>) {
+        <span id="t_5_583">centers</span> = <span id="t_5_586">rbind (centers, <span id="t_5_594">centroid (<span id="t_5_597">cont2mat(<span id="t_5_600">cont</span>[[c]], param)</span>)</span>)</span>
+        <span id="t_5_632">nfound</span> = <span id="t_5_635">nfound</span> + 1
+        contours[[nfound]] = <span id="t_5_657">cont</span>[[c]]
+      }
+    }
+    
+    # loop over the contour lines to update the blob contours
+    for (<span id="t_5_694">c</span> in 1:<span id="t_5_699">length(cont)</span>) {
+      <span id="t_5_713">enclosed</span> = 0
+      <span id="t_5_723">cmat</span> = <span id="t_5_726">cont2mat(<span id="t_5_729">cont</span>[[c]], param)</span>
+      for (<span id="t_5_755">p</span> in 1:<span id="t_5_760">nrow(centers)</span>) {
+        if (<span id="t_5_776">inside (<span id="t_5_779">centers</span>[p,], cmat)</span>) {
+          <span id="t_5_803">enclosed</span> = <span id="t_5_806">enclosed</span> + 1
+          <span id="t_5_817">which</span> = p
+        }
+      }
+      # update the contour if it encloses exactly one center
+      if (<span id="t_5_847">enclosed</span> == 1) {
+        contours[[which]] = <span id="t_5_868">cont2mat (<span id="t_5_871">cont</span>[[c]], param)</span>
+        levels[which] = <span id="t_5_905">cont</span>[[c]]$level
+      }
+    }
+  }
+  
+  if (<span id="t_5_950">show</span>) {
+    <span id="t_5_956">pplot (ff, param, instrument='diva', tx='biexp', ty='biexp')</span>
+    for (<span id="t_5_996">i</span> in 1:<span id="t_5_1001">length(contours)</span>) {
+      <span id="t_5_1015">text (<span id="t_5_1018">centers</span>[i,1], <span id="t_5_1035">centers</span>[i,2], label=<span id="t_5_1054">paste(i)</span>)</span>
+      <span id="t_5_1070">lines (<span id="t_5_1073">contours</span>[[i]])</span>
+    }
+  }
+  
+  <span id="t_5_1108">return (<span id="t_5_1111">list (centers=centers, contours=contours, levels=levels)</span>)</span>
+}
+
+<span id="t_5_1155">ff2kde</span> = function (ff, param=c("FSC-A", "SSC-A"), nbin=501, bandwidth=0.02, log.transform=FALSE) {
+  
+  # extract a matrix of values
+  <span id="t_5_1204">mat</span> &lt;- <span id="t_5_1207">exprs(ff)</span>[,param]
+  
+  # compute a reasonable bandwith for the kde
+  <span id="t_5_1234">bw1</span> &lt;- <span id="t_5_1237">bandwidth</span> * <span id="t_5_1240">max (<span id="t_5_1243">mat</span>[,1])</span>
+  <span id="t_5_1263">bw2</span> &lt;- <span id="t_5_1266">bandwidth</span> * <span id="t_5_1269">max (<span id="t_5_1272">mat</span>[,2])</span>
+  # do the kernel density estimate
+  <span id="t_5_1295">kde</span> &lt;- <span id="t_5_1298">bkde2D (mat, bandwidth=<span id="t_5_1308">c(bw1, bw2)</span>, gridsize=<span id="t_5_1327">c(nbin,nbin)</span>)</span>
+  
+  if (<span id="t_5_1353">log.transform</span>) {
+    <span id="t_5_1359">epsilon</span> = 1e-4
+    kde$fhat = <span id="t_5_1375">log10(<span id="t_5_1378">epsilon</span> + <span id="t_5_1381">kde</span>$fhat)</span>
+    # renormalize to [0,1]
+    <span id="t_5_1399">mx</span> = <span id="t_5_1402">max(<span id="t_5_1405">kde</span>$fhat)</span>
+    <span id="t_5_1419">mn</span> = <span id="t_5_1422">min(<span id="t_5_1425">kde</span>$fhat)</span>
+    kde$fhat = (<span id="t_5_1446">kde</span>$fhat - mn) / (<span id="t_5_1460">mx</span> - mn)
+  }
+  # normalize the density estimate for sanity
+  kde$fhat &lt;- <span id="t_5_1492">kde</span>$fhat / <span id="t_5_1498">max(<span id="t_5_1501">kde</span>$fhat)</span>
+  
+  kde
+}
+
+# if contour isn't closed, close it
+#  ASSUMPTION: there is only one contour on the list resulting from contourLines()
+<span id="t_5_1540">close.contour</span> = function (cont) {
+  <span id="t_5_1550">x</span> = <span id="t_5_1553">cont</span>[[1]]$x
+  <span id="t_5_1571">y</span> = <span id="t_5_1574">cont</span>[[1]]$y
+  <span id="t_5_1592">npts</span> = <span id="t_5_1595">length(x)</span>
+  if ((<span id="t_5_1612">x</span>[1] != <span id="t_5_1622">x</span>[npts]) | (<span id="t_5_1637">y</span>[1] != <span id="t_5_1647">y</span>[npts]) ) {
+    # close it!
+    x[npts+1] = <span id="t_5_1681">x</span>[1]
+    y[npts+1] = <span id="t_5_1709">y</span>[1]
+  }
+  <span id="t_5_1732">newcont</span> = cont
+  newcont[[1]]$x = <span id="t_5_1756">x</span>
+  newcont[[1]]$y = <span id="t_5_1777">y</span>
+  
+  newcont
+}
+
+
+
+</pre></div><div class="tab-pane " id="tabs-6"><pre>
+#
+# Use ideas from image analysis to find blobs in bivariates
+#
+<span id="t_6_12">watershed_boundary</span> &lt;- function (ff, parameters=c("FSC-A", "SSC-A"), 
+                                region = list(x=<span id="t_6_46">c(60000,262142)</span>, y=<span id="t_6_65">c(-Inf,262142)</span>),
+                                location=list(<span id="t_6_93">c(100000, 40000)</span>, <span id="t_6_110">c(165000, 90000)</span>), bandwidth=c(.01, .01), gridsize=c(501L, 501L),
+                                tolerance = .01, smooth=FALSE, debug=FALSE) {
+  <span id="t_6_187">require (KernSmooth)</span>
+  <span id="t_6_199">require (flowCore)</span>
+  <span id="t_6_211">require (EBImage)</span>
+  
+  if (!<span id="t_6_228">is(ff)</span> == "flowFrame") {
+    <span id="t_6_246">cat ("first argument must be a flowFrame\n")</span>
+    return
+  }
+  
+  # extract a loose subregion fully containing the blob(s) of interest
+  if (<span id="t_6_277">debug</span>) {<span id="t_6_282">cat ("\nselecting region...")</span>}
+  <span id="t_6_301">rect_mat</span> &lt;- <span id="t_6_304">matrix(<span id="t_6_307">unlist(region)</span>, ncol=2, dimnames=<span id="t_6_328">list(<span id="t_6_331">c("min", "max")</span>, parameters)</span>)</span>
+  <span id="t_6_362">fg</span> &lt;- <span id="t_6_365">Subset (ff, <span id="t_6_373">rectangleGate(filterId="region", .gate=rect_mat)</span>)</span>
+  
+  # extract a matrix of values
+  <span id="t_6_404">mat</span> &lt;- <span id="t_6_407">exprs(fg)</span>[,parameters]
+  
+  # compute a reasonable bandwith for the kde
+  <span id="t_6_434">bw1</span> &lt;- <span id="t_6_437">bandwidth</span>[1] * <span id="t_6_447">max (<span id="t_6_450">mat</span>[,1])</span>
+  <span id="t_6_470">bw2</span> &lt;- <span id="t_6_473">bandwidth</span>[2] * <span id="t_6_483">max (<span id="t_6_486">mat</span>[,2])</span>
+  # do the kernel density estimate
+  if (<span id="t_6_511">debug</span>) {<span id="t_6_516">cat ("\ncomputing the KDE...")</span>}
+  <span id="t_6_535">kde</span> &lt;- <span id="t_6_538">bkde2D (mat, bandwidth=<span id="t_6_548">c(bw1, bw2)</span>, gridsize=gridsize)</span>
+  
+  <span id="t_6_579">img</span> &lt;- <span id="t_6_582">kde</span>[[3]] / <span id="t_6_593">max(<span id="t_6_596">kde</span>[[3]])</span>
+  
+  if (<span id="t_6_619">smooth</span>) {
+    <span id="t_6_625">smooth_kernel</span> &lt;- <span id="t_6_628">makeBrush (31, shape='disc')</span>
+    <span id="t_6_648">img</span> &lt;- <span id="t_6_651">filter2 (img, filter=smooth_kernel)</span>
+    <span id="t_6_671">img</span> &lt;- <span id="t_6_674">img</span> / <span id="t_6_677">max(img)</span>
+  }
+  
+  <span id="t_6_701">eimg</span> &lt;- <span id="t_6_704">equalize(img)</span>
+  
+  # threshold at the median value of the equalized image
+  # threshold &lt;- median(eimg)
+  <span id="t_6_725">threshold</span> = .7
+  <span id="t_6_735">timg</span> &lt;- <span id="t_6_738">eimg</span> &gt; threshold
+  
+  # dilate to expand the region a bit
+  <span id="t_6_753">dilate_kernel</span> &lt;- <span id="t_6_756">makeBrush(31, shape='disc')</span>
+  <span id="t_6_776">timg</span> &lt;- <span id="t_6_779">dilate (timg, kern=dilate_kernel)</span>
+  
+  # mask the image with the thresholded image
+  <span id="t_6_804">mimg</span> &lt;- <span id="t_6_807">img</span> * timg
+  
+  # do the watershed segmentation
+  if (<span id="t_6_824">debug</span>) {<span id="t_6_829">cat ("\ndoing the watershed segmentation...")</span>}
+  <span id="t_6_848">ws</span> &lt;- <span id="t_6_851">watershed (mimg, tolerance=tolerance)</span>
+  
+  # extract contours of blobs
+  <span id="t_6_876">nblob</span> &lt;- <span id="t_6_879">max(ws)</span>
+  <span id="t_6_892">cont</span> &lt;- <span id="t_6_895">ocontour(ws)</span>
+  
+  # convert pixels to object coordinates
+  <span id="t_6_913">poly</span> &lt;- <span id="t_6_916">list()</span>
+  <span id="t_6_926">centroid</span> &lt;- <span id="t_6_929">list()</span>
+  for (<span id="t_6_941">i</span> in 1:<span id="t_6_946">nblob</span>) {
+    poly[[i]] &lt;- <span id="t_6_964">cbind(<span id="t_6_967">kde</span>[[1]][<span id="t_6_978">cont</span>[[i]][,1]+1], <span id="t_6_1008">kde</span>[[2]][<span id="t_6_1019">cont</span>[[i]][,2]+1])</span>
+    colnames(poly[[i]]) &lt;- <span id="t_6_1072">parameters</span>
+    <span id="t_6_1078">xcen</span> &lt;- <span id="t_6_1081">mean(<span id="t_6_1084">poly</span>[[i]][,1])</span>
+    <span id="t_6_1111">ycen</span> &lt;- <span id="t_6_1114">mean(<span id="t_6_1117">poly</span>[[i]][,2])</span>
+    centroid[[i]] &lt;- <span id="t_6_1155">c(xcen, ycen)</span>
+  }
+  
+  # extract the boundary of the blob closest to specified location(s)
+  if (<span id="t_6_1188">debug</span>) {<span id="t_6_1193">cat ("\npicking target blob(s)...")</span>}
+  <span id="t_6_1212">sel</span> &lt;- <span id="t_6_1215">list()</span>
+  for (<span id="t_6_1227">j</span> in 1:<span id="t_6_1232">length(location)</span>) {
+    <span id="t_6_1246">min_dist</span> &lt;- Inf
+    for (<span id="t_6_1257">i</span> in 1:<span id="t_6_1262">nblob</span>) {
+      <span id="t_6_1269">dx</span> &lt;- <span id="t_6_1272">location</span>[[j]][1] - <span id="t_6_1290">centroid</span>[[i]][1]
+      <span id="t_6_1312">dy</span> &lt;- <span id="t_6_1315">location</span>[[j]][2] - <span id="t_6_1333">centroid</span>[[i]][2]
+      <span id="t_6_1355">dist</span> &lt;- <span id="t_6_1358">dx</span>*dx + <span id="t_6_1365">dy</span>*dy
+      if (<span id="t_6_1378">dist</span> &lt; min_dist) {
+        <span id="t_6_1388">min_dist</span> &lt;- dist
+        sel[[j]] &lt;- <span id="t_6_1408">i</span>
+      }
+    }
+  }
+  
+  if (<span id="t_6_1441">debug</span>) {
+    <span id="t_6_1447">plot (ff, parameters, nbin=201, colramp=<span id="t_6_1469">blob_color()</span>)</span>
+    <span id="t_6_1482">hicol</span> &lt;- <span id="t_6_1485">c('red', 'green', 'magenta', 'white')</span>
+    <span id="t_6_1513">j</span>=1
+    for (<span id="t_6_1525">i</span> in 1:<span id="t_6_1530">nblob</span>) {
+      <span id="t_6_1537">lines (<span id="t_6_1540">poly</span>[[i]])</span>
+    }
+    for (<span id="t_6_1567">i</span> in 1:<span id="t_6_1572">length(sel)</span>) {
+      <span id="t_6_1586">lines(<span id="t_6_1589">poly</span>[[<span id="t_6_1592">sel</span>[[i]]]], lwd=2, col=<span id="t_6_1619">hicol</span>[i])</span>
+    }
+    <span id="t_6_1643">npts</span> &lt;- 0
+    if (<span id="t_6_1654">nrow(ff)</span> &gt; npts) {
+      <span id="t_6_1671">pts</span> &lt;- <span id="t_6_1674">sample(1:<span id="t_6_1680">nrow(ff)</span>, size=npts)</span>
+    } else {
+      <span id="t_6_1712">pts</span> &lt;- 1:<span id="t_6_1718">nrow(ff)</span>
+    }
+    <span id="t_6_1740">points (<span id="t_6_1743">exprs(ff)</span>[pts,parameters], pch='.')</span>
+  }
+  if (<span id="t_6_1789">debug</span>) {<span id="t_6_1794">cat ("\ndone\n")</span>}
+  
+  # construct the return val
+  if (<span id="t_6_1818">length(sel)</span> &gt; 1) {
+    <span id="t_6_1835">retlist</span> &lt;- <span id="t_6_1838">list()</span>
+    for (<span id="t_6_1850">i</span> in 1:<span id="t_6_1855">length(sel)</span>) {
+      retlist[[i]] &lt;- <span id="t_6_1880">poly</span>[[<span id="t_6_1883">sel</span>[[i]]]]
+    }
+    <span id="t_6_1910">return (retlist)</span>
+  } else {
+    <span id="t_6_1929">return (<span id="t_6_1932">poly</span>[[<span id="t_6_1935">sel</span>[[1]]]])</span>
+  }
+}</pre></div>
+    </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p> Generated on2014-12-08 17:59:24 by <a href="http://www.mango-solutions.com/wp/products-services/r-services/r-packages/testcoverage/">testCoverage</a>.</p>
+  </div>
+  </div>
+</body> 
+</html>

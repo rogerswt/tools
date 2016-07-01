@@ -1,0 +1,5 @@
+source("~/git/R/tools/visutils/axes.R")
+source("~/git/R/tools/visutils/clustcolramp.R")
+source("~/git/R/tools/visutils/fencepost.R")
+source("~/git/R/tools/visutils/pplot.R")
+source("~/git/R/tools/visutils/view_bivariates.R")
