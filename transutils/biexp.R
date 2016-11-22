@@ -110,5 +110,11 @@ biexpTransform <- function (transformId="mybiexp", a=0.002, full_scale=262143, j
 	t
 }
 
+# shorthand form
+bx = function(x) {
+  res = biexp.transform(x, jitter = FALSE)
+  
+  res
+}
 
 

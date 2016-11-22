@@ -6,4 +6,6 @@ source("~/git/R/tools/distribution_analysis/watershed_boundary.R")
 source("~/git/R/tools/distribution_analysis/locateCSTBrightPeak.R")
 source("~/git/R/tools/distribution_analysis/locateBlobs.R")
 source("~/git/R/tools/distribution_analysis/cleanup.R")
+source("~/git/R/tools/distribution_analysis/locateBlobs2.R")
+source("~/git/R/tools/distribution_analysis/gaussian_utils.R")
 

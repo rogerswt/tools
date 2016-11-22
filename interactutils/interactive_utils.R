@@ -31,6 +31,7 @@ build.path = function (parray, trailing.slash = FALSE) {
   }
   # get rid of consecutive slashes
   path = gsub ("//", "/", path, fixed=TRUE)
+  path = gsub ("//", "/", path, fixed=TRUE)
   
   path
 }

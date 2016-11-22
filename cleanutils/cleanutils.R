@@ -70,8 +70,15 @@ clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
   res1 = time.slice (ff)
   fs = res1$fs
   bin.indices = res1$bin.indices
-  res = find.bad.slices (fs, parameters=parameters, show=show)
+  res = find.bad.slices (fs, parameters=parameters, show=FALSE)
   parameters = res$parameters
+  if (show) {
+    n.parameters = length(parameters)
+    n.across = ceiling (sqrt(n.parameters + 1))
+    n.down = ceiling((n.parameters + 1) / n.across)
+    opar = par(mfrow=c(n.down, n.across), mar=c(3, 3, 1, 1))
+    res = find.bad.slices (fs, parameters=parameters, show=TRUE)
+  }
   
   # add a good/bad parameter to the flowFrame
   gb = rep (1, length=nrow(ff))
@@ -90,22 +97,22 @@ clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
   res.ff = flowFrame (tmpmat, parameters=as (pdata, "AnnotatedDataFrame"))
 
   res.ff = flowFrame (tmpmat)
-#   if (show) {
-#     n.parameters = length(parameters)
-#     n.across = ceiling (sqrt(n.parameters))
-#     par(mfrow=c(n.across, n.across), mar=c(3, 3, 1, 1))
-#     for (p in parameters) {
-#       show.bad.events(res.ff, p)
-#     }
-#   }
+  if (show) {
+    for (p in parameters) {
+      show.bad.events(res.ff, p)
+      title(main = p)
+    }
+    par(opar)
+  }
   
   res.ff
 }
 
 show.bad.events = function (ff, parameter) {
-  pplot(ff, c("Time", parameter), tx='linear')
+  pplot(ff, c("Time", parameter), tx='linear', ylim=bx(c(-1000, 250000)))
   ff.bad = Subset(ff, rectangleGate("clean"=c(-.5,.5)))
-  points (exprs(ff.bad)[,"Time"], exprs(ff.bad)[,parameter], pch=20, cex=.2, col='gray')
+  # points (exprs(ff.bad)[,"Time"], exprs(ff.bad)[,parameter], pch=20, cex=.2, col='gray')
+  points (exprs(ff.bad)[,"Time"], rep(bx(2e5), nrow(ff.bad)), pch=20, cex=.2, col='black')
 }
 
 

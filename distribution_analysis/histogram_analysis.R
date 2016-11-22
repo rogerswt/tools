@@ -47,8 +47,11 @@ find.local.minima <- function (kde, thresh=.05, offset=5000, show=FALSE, ...) {
 }
 
 # helper function, not to be exposed
-msExtrema <- function(x, span=3)
-{
+msExtrema <- function(x, span=3) {
+  # WTR 2016-08-26  - looks like peaks has been deprecated again!
+  # Found a function in a previous version and copied it here.  It depends on
+  # splus2r
+  require(splus2R)
   # find local maxima
   index1 <- peaks(x, span=span, strict=FALSE)
   
@@ -112,4 +115,10 @@ deriv.kde = function (kde, normalize=TRUE) {
   }
   res = list(x=x, y=yp)
   res
+}
+
+normalize_kde = function(kde) {
+  kde$y = kde$y / max(kde$y)
+  
+  kde
 }

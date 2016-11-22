@@ -9,9 +9,10 @@ view.bivariates = function(ff, params, threshold = NULL, curve.threshold =
                            ff.subset = NULL, subset.dots = FALSE, title = "",
                            file = NULL, nbin = 201, xlim = c(-0.5,5), ylim =
                              c(-0.5,5),
-                           tx = "biexp", ty = "biexp", labels = colnames(ff)[params]) {
+                           tx = "biexp", ty = "biexp", labels = colnames(ff)[params],
+                           width = 1200, height = 1200) {
   if (!is.null(file)) {
-    png(filename = file, width = 1200, height = 1200)
+    png(filename = file, width = width, height = height)
   }
   nparams = length(params)
   # set up a diagonal plot array with layout.  First row is column headings, and each
@@ -67,7 +68,7 @@ view.bivariates = function(ff, params, threshold = NULL, curve.threshold =
       )
       if (!is.null(ff.subset)) {
         if (subset.dots) {
-          add.dots(ff = ff.subset, cex = .5)
+          add.dots(ff = ff.subset, params = plist, cex = .5)
         } else {
           add.contours(ff.subset, params = plist)
         }
