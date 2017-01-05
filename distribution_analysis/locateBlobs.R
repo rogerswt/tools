@@ -18,13 +18,13 @@ locate.blobs = function (ff, param=c("FSC-A", "SSC-A"), eps=.01, max_peaks=10, m
   nfound = 0
   for (height in heights) {
     
-    cont <- contourLines (kde$x1, kde$x2, kde$fhat, levels=height)
-    cont = close.contour (cont)
+    contr <- contourLines (kde$x1, kde$x2, kde$fhat, levels=height)
+    contr = close.contour (contr)
     
     # loop over the contour lines to detect new centers
-    for (c in 1:length(cont)) {
+    for (c in 1:length(contr)) {
       found = FALSE
-      cmat =  cont2mat(cont[[c]], param)
+      cmat =  cont2mat(contr[[c]], param)
       if (nrow(centers) > 0) {
         for (p in 1:nrow(centers)) {
           if (inside (centers[p,], cmat)) {
@@ -34,16 +34,16 @@ locate.blobs = function (ff, param=c("FSC-A", "SSC-A"), eps=.01, max_peaks=10, m
         }
       }
       if (!found) {
-        centers = rbind (centers, centroid (cont2mat(cont[[c]], param)))
+        centers = rbind (centers, centroid (cont2mat(contr[[c]], param)))
         nfound = nfound + 1
-        contours[[nfound]] = cont[[c]]
+        contours[[nfound]] = contr[[c]]
       }
     }
     
     # loop over the contour lines to update the blob contours
-    for (c in 1:length(cont)) {
+    for (c in 1:length(contr)) {
       enclosed = 0
-      cmat = cont2mat(cont[[c]], param)
+      cmat = cont2mat(contr[[c]], param)
       for (p in 1:nrow(centers)) {
         if (inside (centers[p,], cmat)) {
           enclosed = enclosed + 1
@@ -52,8 +52,8 @@ locate.blobs = function (ff, param=c("FSC-A", "SSC-A"), eps=.01, max_peaks=10, m
       }
       # update the contour if it encloses exactly one center
       if (enclosed == 1) {
-        contours[[which]] = cont2mat (cont[[c]], param)
-        levels[which] = cont[[c]]$level
+        contours[[which]] = cont2mat (contr[[c]], param)
+        levels[which] = contr[[c]]$level
       }
     }
   }
@@ -95,19 +95,22 @@ ff2kde = function (ff, param=c("FSC-A", "SSC-A"), nbin=501, bandwidth=0.02, log.
 }
 
 # if contour isn't closed, close it
-#  ASSUMPTION: there is only one contour on the list resulting from contourLines()
-close.contour = function (cont) {
-  x = cont[[1]]$x
-  y = cont[[1]]$y
-  npts = length(x)
-  if ((x[1] != x[npts]) | (y[1] != y[npts]) ) {
-    # close it!
-    x[npts+1] = x[1]
-    y[npts+1] = y[1]
+close.contour = function (contr) {
+  n_cont = length(contr)
+  newcont = list()
+  for (i in 1:n_cont) {
+    x = contr[[i]]$x
+    y = contr[[i]]$y
+    npts = length(x)
+    if ((x[1] != x[npts]) | (y[1] != y[npts]) ) {
+      # close it!
+      x[npts+1] = x[1]
+      y[npts+1] = y[1]
+    }
+    newcont[[i]] = contr[[i]]  # make a place, then replace it
+    newcont[[i]]$x = x
+    newcont[[i]]$y = y
   }
-  newcont = cont
-  newcont[[1]]$x = x
-  newcont[[1]]$y = y
   
   newcont
 }
