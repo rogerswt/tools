@@ -16,6 +16,23 @@ circle <- function (blob, radius, length=100) {
   out
 }
 
+# draw a circle around a point
+circle.point = function(pt, radius, length=100) {
+  cen1 <- pt[1]
+  cen2 <- pt[2]
+  
+  out <- matrix(nrow=(length+1), ncol=2)
+  colnames(out) <- names(pt)
+  
+  for (i in 1:length) {
+    theta <- 2*pi*i/length
+    out[i,1] <- cen1 + radius * cos(theta)
+    out[i,2] <- cen2 + radius * sin(theta)
+  }
+  out[length+1,] <- out[1,]	# join the beginning and end (aesthetics)
+  out
+}
+
 close.contour = function (blob) {
   x = blob[,1]
   y = blob[,2]

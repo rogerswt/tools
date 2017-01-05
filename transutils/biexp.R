@@ -112,8 +112,11 @@ biexpTransform <- function (transformId="mybiexp", a=0.002, full_scale=262143, j
 
 # shorthand form
 bx = function(x) {
+  idx = which(x == -Inf)
   res = biexp.transform(x, jitter = FALSE)
-  
+  if(length(idx) > 0) {
+    res[idx] = -Inf
+  }
   res
 }
 

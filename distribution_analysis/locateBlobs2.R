@@ -50,6 +50,7 @@ locate.blobs.2 = function(ff, param, bandwidth = .02, nbin = 501, min_area = .01
 }
 
 eliminate_duplicate_contours = function(clist) {
+  if (length(clist) <= 1) {return(clist)}
   out = list()
   idx = 1:length(clist)
   k = 1
