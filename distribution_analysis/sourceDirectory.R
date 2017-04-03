@@ -1,3 +1,4 @@
+library(KernSmooth)
 source("~/git/R/tools/distribution_analysis/blob_boundary.R")
 source("~/git/R/tools/distribution_analysis/blob_utils.R")
 source("~/git/R/tools/distribution_analysis/deGate.R")

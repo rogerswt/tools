@@ -120,4 +120,9 @@ bx = function(x) {
   res
 }
 
+ibx = function(x) {
+  res = inv.biexp.transform(x)
+  
+  res
+}
 
