@@ -8,19 +8,19 @@
 pplot <- function (ff, plist, blueBackground=FALSE, showZero=TRUE, nbin=501, bandwidth=0.001, cr=blob_color(blueBackground=FALSE), col = "black", nrpoints=0, instrument=c("diva", "influx"), tx=c("biexp", "log", "linear"), ty=c("biexp", "log", "linear"), plotaxt = T,  ticksize=1,...) {
 	require ("fields")
     if(!is.null(cr)){
-      suppressWarnings (plot (ff, plist, colramp=cr, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...))
+      suppressWarnings (flowCore::plot (ff, plist, colramp=cr, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...))
     }
     else{
-#       suppressWarnings (plot (ff, plist, col=col, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...)) 
-      
+#       suppressWarnings (plot (ff, plist, col=col, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...))
+
       suppressWarnings(plot (exprs(ff)[,plist[1]],exprs(ff)[,plist[2]], pch=20, col=col,cex =.2,  axes=F,xlab=plist[1],ylab=plist[2], ...))
       box()
     }
-	
+
   if(plotaxt==TRUE){
 	  suppressWarnings (ax (1, instrument=instrument, type=tx, ticksize=ticksize))
 	  suppressWarnings (ax (2, instrument=instrument, type=ty,  ticksize=ticksize))
-  }	
+  }
 	if (showZero) {
 		xline (0, lty='dotdash')
 		yline (0, lty='dotdash')
@@ -34,10 +34,10 @@ pplot.with.hist = function (ff, plist, tx='biexp', ty='biexp', mthresh=c(.001, .
   laymat = matrix (c(1, 3, 0, 2), nrow=2, ncol=2)
   widths = c(1, .3)
   heights = c(.3, 1)
-  
+
   layout (laymat, widths=widths, heights=heights)
-  
-  
+
+
   pnames = colnames(ff)
   pind1 = grep (plist[1], pnames)
   pind2 = grep (plist[2], pnames)
@@ -47,14 +47,14 @@ pplot.with.hist = function (ff, plist, tx='biexp', ty='biexp', mthresh=c(.001, .
   mn2 = parameters(ff)$minRange[pind2]
   mx1 = parameters(ff)$maxRange[pind1]
   mx2 = parameters(ff)$maxRange[pind2]
-  
+
   if (find.thresholds) {
     loc.min.x = find.local.minima (kde1, thresh=mthresh[1])$x
     loc.min.y = find.local.minima (kde2, thresh=mthresh[2])$x
-    
+
   }
-  
-  
+
+
   par(mar=c(0,4,0,0)+.1)
   npts = length(kde1$x)
   kde1$y[1] = kde1$y[npts] = 0
@@ -62,7 +62,7 @@ pplot.with.hist = function (ff, plist, tx='biexp', ty='biexp', mthresh=c(.001, .
   polygon (kde1$x, kde1$y, col='gray')
   if (find.thresholds) {
     xline(loc.min.x, lty='dotdash')
-  }  
+  }
   # need to rotate the y histogram
   par (mar=c(4, 0, 0, 0)+.1)
   npts = length(kde2$x)
@@ -72,17 +72,17 @@ pplot.with.hist = function (ff, plist, tx='biexp', ty='biexp', mthresh=c(.001, .
   if (find.thresholds) {
     yline(loc.min.y, lty='dotdash')
   }
-  
+
   par(mar=c(4, 4, 0, 0)+.1)
   pplot (ff, plist, tx=tx, ty=ty, xlim=c(mn1,mx1), ylim=c(mn2,mx2))
   if (find.thresholds) {
     xline(loc.min.x, lty='dotdash', lwd=3)
-    yline(loc.min.y, lty='dotdash', lwd=3)  
+    yline(loc.min.y, lty='dotdash', lwd=3)
   }
-  
+
   # reset par to reasonable values
   par (mfrow=c(1,1), mar=c(5,4,4,1))
-  
+
   if (find.thresholds) {
     invisible (list(x.thresh=loc.min.x, y.thresh=loc.min.y))
   } else {
@@ -109,12 +109,12 @@ pplot.show.bad = function (ff, parameter, idx.or.time=c("idx", "time"), tx='line
   idx.or.time = match.arg(idx.or.time)
   pplot.index (ff = ff, parameter = parameter, idx.or.time = idx.or.time, tx=tx, ty=ty, ...)
   tot.events = nrow(ff)
-  
+
   # find events with clean == 0
   if ("clean" %in% colnames(ff)) {
     tmp = Subset (ff, rectangleGate("clean"=c(-1e-1, 1e-1)))
     lost.events = nrow(tmp)
-    
+
     xpos = .4
     if (idx.or.time == "idx") {
       xvals = which (exprs(ff)[,"clean"] == 0.0)
