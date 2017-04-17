@@ -1,3 +1,10 @@
+library(flowCore)
+library(flowViz)
+library(flowFP)
+library(fields)
+library(KernSmooth)
+
+
 # The following checks to see if the environment variable FLOW_TOOL_BASE
 # has been defined.
 
