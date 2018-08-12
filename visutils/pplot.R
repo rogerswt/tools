@@ -8,7 +8,7 @@
 pplot <- function (ff, plist, blueBackground=FALSE, showZero=TRUE, nbin=501, bandwidth=0.001, cr=blob_color(blueBackground=FALSE), col = "black", nrpoints=0, instrument=c("diva", "influx"), tx=c("biexp", "log", "linear"), ty=c("biexp", "log", "linear"), plotaxt = T,  ticksize=1,...) {
 	require ("fields")
     if(!is.null(cr)){
-      suppressWarnings (plot (ff, plist, colramp=cr, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...))
+      suppressWarnings (flowCore::plot (ff, plist, colramp=cr, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...))
     }
     else{
 #       suppressWarnings (plot (ff, plist, col=col, nbin=nbin, band=bandwidth, nrpoints=nrpoints, axes=FALSE, ...)) 

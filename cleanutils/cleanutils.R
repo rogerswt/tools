@@ -90,8 +90,11 @@ clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
   tmpmat = exprs(ff)
   tmpmat = cbind (tmpmat, clean=gb)
   pdata = pData(parameters(ff))
+  # add one to the last $P
+  max_rowname = rownames(pdata)[nrow(pdata)]
+  max_rowname = as.numeric(sub(pattern = "$P", replacement = "", x = max_rowname, fixed = TRUE))
+  last.pname = paste("$P", max_rowname + 1, sep = "")
   pdata = rbind(pdata, list("clean", "<NA>", 262144, 0, 1))
-  last.pname = paste ("$P", nrow(pdata), sep="")
   rownames(pdata)[nrow(pdata)] = last.pname
   
   res.ff = flowFrame (tmpmat, parameters=as (pdata, "AnnotatedDataFrame"))
