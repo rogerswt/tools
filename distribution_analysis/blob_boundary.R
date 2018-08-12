@@ -10,7 +10,7 @@
 # If log.transform is TRUE, transform the kde before contouring.
 #
 
-blob.boundary <- function (ff, parameters=c("FSC-A", "SSC-A"), location=c(75000, 25000), bandwidth=c(.02, .02), gridsize=c(201L, 201L), height=.1, log.transform=FALSE) {
+blob.boundary <- function (ff, parameters=c("FSC-A", "SSC-A"), location=c(75000, 25000), strongest = FALSE, bandwidth=c(.02, .02), gridsize=c(201L, 201L), height=.1, log.transform=FALSE) {
 	require ("KernSmooth")
 	require ("flowCore")
   
@@ -46,18 +46,30 @@ blob.boundary <- function (ff, parameters=c("FSC-A", "SSC-A"), location=c(75000,
 		return
 	}
 	
-	# pick the  contour closest to the target location
-	dist <- vector("numeric")
-	for (i in 1:length(cont)) {
-		xcen <- mean(cont[[i]]$x)
-		ycen <- mean(cont[[i]]$y)
-		dist[i] <- (xcen - location[1])^2 + (ycen - location[2])^2
+	if (strongest) {
+	  # pick the contour that encloses the most events - 2018-08-12 WTR
+	  nev = vector(mode = 'numeric')
+	  for (i in 1:length(cont)) {
+	    mat = cont2mat(cont[[i]], param = parameters)
+	    nev[i] = nrow(Subset(ff, polygonGate(.gate = mat)))
+	  }
+	  idx = which(nev == max(nev))
+	  out = cont2mat(cont[[idx]], param = parameters)
+	} else {
+	  # pick the  contour closest to the target location
+	  dist <- vector("numeric")
+	  for (i in 1:length(cont)) {
+	    xcen <- mean(cont[[i]]$x)
+	    ycen <- mean(cont[[i]]$y)
+	    dist[i] <- (xcen - location[1])^2 + (ycen - location[2])^2
+	  }
+	  nearest <- sort(dist, index.return=T)$ix[1]
+	  out = cont2mat(cont[[nearest]], param = parameters)
+	  # nrows <- length(cont[[nearest]]$x)
+	  # out <- matrix(NA, nrow=nrows, ncol=2)
+	  # out[,1] <- cont[[nearest]]$x
+	  # out[,2] <- cont[[nearest]]$y
+	  # colnames(out) <- parameters
 	}
-	nearest <- sort(dist, index.return=T)$ix[1]
-	nrows <- length(cont[[nearest]]$x)
-	out <- matrix(NA, nrow=nrows, ncol=2)
-	out[,1] <- cont[[nearest]]$x
-	out[,2] <- cont[[nearest]]$y
-	colnames(out) <- parameters
 	out
 }
