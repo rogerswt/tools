@@ -8,6 +8,6 @@ cat("commands executing from ~/.Rprofile\n")
 # Wade's flow cytometry tools.  This could be anywhere, but a suggestion
 # might be somewhere in ~/git.
 #
-FLOW_TOOLS_BASE = "~/git/R/tools/"
+FLOW_TOOLS_BASE = "~/git/R/tools/"    # edit this for your installation
 source(paste(FLOW_TOOLS_BASE, "sourceTools.R", sep = ""))
 
