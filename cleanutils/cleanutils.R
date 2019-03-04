@@ -8,9 +8,9 @@ time.slice = function (ff, nbin=96) {
   if (is(ff) != "flowFrame") {
     stop ("ff must be a single flowFrame")
   }
-  
+
   nevents = nrow(ff)
-  
+
   cuts = floor (seq (1, nevents, length=(nbin+1)))
   flist = list()
   bin.indices = list()
@@ -23,7 +23,7 @@ time.slice = function (ff, nbin=96) {
   }
   names(flist) = paste ("slice_", 1:nbin, sep="")
   fs = flowSet (flist)
-  
+
   return (list(fs=fs, bin.indices=bin.indices))
 }
 
@@ -31,7 +31,7 @@ time.slice = function (ff, nbin=96) {
 find.bad.slices = function (fs, parameters=NULL, qcfac = 1.25, show=FALSE) {
   # require (changepoint)
   require (flowFP)
-  
+
   if (is.null(parameters)) {      # try to find only fluorescence parameters
     all.names = colnames(fs)
     # get rid of FSC, SSC and other named parameters
@@ -43,17 +43,17 @@ find.bad.slices = function (fs, parameters=NULL, qcfac = 1.25, show=FALSE) {
     idx = which(bool)
     parameters = colnames(fs)[idx]
   }
-  
+
   # calculate qc metric using same method as plotPlateFP
   fp = flowFP (fs, parameters=parameters)
   cmat = counts (fp, transformation='log2norm')
   cmat[which(is.infinite(cmat))] = NA
   qcval = apply (cmat, 1, na.rm=TRUE, sd)
-  
+
   # flag qcvals that are kinda big...
   medval = median (qcval)
   ditch = which (qcval >= medval * qcfac)
-  
+
   if (show) {
     idx = 1:length(qcval)
     plot (idx, qcval, ylim=c(0, max(qcval)))
@@ -61,13 +61,13 @@ find.bad.slices = function (fs, parameters=NULL, qcfac = 1.25, show=FALSE) {
     yline (medval, lty='dotdash')
     yline (medval * qcfac)
   }
-  
+
   return (list(qcval=qcval, ditch=ditch, medval=medval, parameters=parameters))
 }
 
 clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
   require (fields)   # yline
-  res1 = time.slice (ff)
+  res1 = time.slice (ff, nbin)
   fs = res1$fs
   bin.indices = res1$bin.indices
   res = find.bad.slices (fs, parameters=parameters, show=FALSE)
@@ -79,7 +79,7 @@ clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
     opar = par(mfrow=c(n.down, n.across), mar=c(3, 3, 1, 1))
     res = find.bad.slices (fs, parameters=parameters, show=TRUE)
   }
-  
+
   # add a good/bad parameter to the flowFrame
   gb = rep (1, length=nrow(ff))
   if (length(res$ditch != 0)) {
@@ -96,7 +96,7 @@ clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
   last.pname = paste("$P", max_rowname + 1, sep = "")
   pdata = rbind(pdata, list("clean", "<NA>", 262144, 0, 1))
   rownames(pdata)[nrow(pdata)] = last.pname
-  
+
   res.ff = flowFrame (tmpmat, parameters=as (pdata, "AnnotatedDataFrame"))
 
   res.ff = flowFrame (tmpmat)
@@ -107,7 +107,7 @@ clean.fp = function (ff, parameters=NULL, nbin=96, show=FALSE) {
     }
     par(opar)
   }
-  
+
   res.ff
 }
 

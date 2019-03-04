@@ -44,6 +44,19 @@ close.contour = function (blob) {
 }
 
 get.hull <- function (blob) {
+  # 2018-08-27 WTR - handle edge case that blob is a single point
+  if (is.vector(blob)) {
+    cnames= names(blob)
+    blob = matrix(blob, nrow = 1, ncol = 2)
+    colnames(blob) = cnames
+    return(blob)
+  }
+  if(!is.matrix(blob)) {
+    cnames = names(blob)
+    blob = matrix(blob, ncol = 2)
+    colnames(blob) = cnames
+    return(blob)
+  }
   x <- blob[,1]
   y <- blob[,2]
   hull <- chull(x, y)
