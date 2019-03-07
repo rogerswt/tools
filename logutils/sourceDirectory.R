@@ -1,1 +1,1 @@
-source ("~/git/R/tools/logutils/logutils.R")
+source(paste(FLOW_TOOLS_BASE, "logutils/logutils.R", sep = ""))

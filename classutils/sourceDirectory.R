@@ -1,2 +1,2 @@
-source("~/git/R/tools/classutils/color_dendrogram.R")
-source("~/git/R/tools/classutils/distance_metrics.R")
+source(paste(FLOW_TOOLS_BASE, "classutils/color_dendrogram.R", sep = ""))
+source(paste(FLOW_TOOLS_BASE, "classutils/distance_metrics.R", sep = ""))

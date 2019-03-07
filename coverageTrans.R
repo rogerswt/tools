@@ -4,7 +4,7 @@
 #  2014-12-08  WTR
 #
 
-tools.path = "~/git/R/tools/"
+tools.path = FLOW_TOOLS_BASE
 
 source (paste(tools.path, "sourceTools.R", sep=""))
 

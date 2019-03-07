@@ -18,7 +18,7 @@ library("splus2R")
 library("ifultools")
 library("MASS")
 
-tools.path = "~/git/R/tools/"
+tools.path = FLOW_TOOLS_BASE
 source (paste(tools.path, "sourceTools.R", sep=""))
 
 # distribution_analysis

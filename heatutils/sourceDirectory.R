@@ -1,1 +1,2 @@
-source("~/git/R/tools/heatutils/colorRamps.R")
+source(paste(FLOW_TOOLS_BASE, "heatutils/colorRamps.R", sep = ""))
+

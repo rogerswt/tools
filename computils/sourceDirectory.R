@@ -1,2 +1,3 @@
-source("~/git/R/tools/computils/autocomp.R")
-source("~/git/R/tools/computils/compute_spill.R")
+source(paste(FLOW_TOOLS_BASE, "computils/autocomp.R", sep = ""))
+source(paste(FLOW_TOOLS_BASE, "computils/compute_spill.R", sep = ""))
+

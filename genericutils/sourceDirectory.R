@@ -1,1 +1,1 @@
-source("~/git/R/tools/genericutils/textutils.R")
+source(paste(FLOW_TOOLS_BASE, "genericutils/textutils.R", sep = ""))

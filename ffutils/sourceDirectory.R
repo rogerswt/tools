@@ -1,1 +1,1 @@
-source("~/git/R/tools/ffutils/importutils.R")
+source(paste(FLOW_TOOLS_BASE, "ffutils/importutils.R", sep = ""))

@@ -1,1 +1,2 @@
-source("~/git/R/tools/dbutils/dbutils.R")
+source(paste(FLOW_TOOLS_BASE, "dbutils/dbutils.R", sep = ""))
+

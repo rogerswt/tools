@@ -1,2 +1,4 @@
-source("~/git/R/tools/transutils/biexp.R")
-source("~/git/R/tools/transutils/boxcox.R")
+source(paste(FLOW_TOOLS_BASE, "transutils/biexp.R", sep = ""))
+source(paste(FLOW_TOOLS_BASE, "transutils/boxcox.R", sep = ""))
+
+

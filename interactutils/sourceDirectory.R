@@ -1,1 +1,1 @@
-source("~/git/R/tools/interactutils/interactive_utils.R")
+source(paste(FLOW_TOOLS_BASE, "interactutils/interactive_utils.R", sep = ""))

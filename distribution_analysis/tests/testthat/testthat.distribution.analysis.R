@@ -7,7 +7,8 @@
 context ("2D blob analysis")
 
 library ("flowCore")
-load ("~/git/R/tools/testdata/ff.rda")
+
+load (paste(FLOW_TOOLS_BASE, "testdata/ff.rda", sep = ""))
 
 library(KernSmooth)
 kde = bkde(exprs(ff)[,"FSC-A"])
